@@ -17,13 +17,13 @@
             <h1>Cuestionario</h1>
         </div>
 
-        <div class="section" ng-repeat="pregunta in vm.preguntas" ng-show="vm.saltar($first, pregunta)">
+        <div class="section" ng-repeat="pregunta in vm.preguntas" ng-show="vm.mostrar($first, pregunta)">
             <h3 class="w3-text-grey">{{$index + 1}}. {{pregunta.texto}}</h3>
 
             <ul class="w3-container">
                 <li ng-repeat="opcion in pregunta.opciones">
                     <label>
-                        <input type="radio" name="{{pregunta.codigo}}" value="{{opcion.valor}}" ng-checked="opcion.valor == pregunta.opcion_seleccionada" ng-click="vm.click(pregunta, opcion.valor, opcion.salto)" class="w3-radio"/>
+                        <input type="radio" name="{{pregunta.codigo}}" value="{{opcion.valor}}" ng-checked="opcion.pk == pregunta.respuestas[0].opcion" ng-click="vm.click(pregunta.respuestas[0], opcion.pk)" class="w3-radio"/>
                         {{opcion.texto}}
                     </label>
                 </li>

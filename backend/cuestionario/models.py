@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.db import models
 
 '''
@@ -9,12 +11,8 @@ class Pregunta(models.Model):
     texto = models.TextField(default="")
     orden = models.IntegerField(default=0)
 
-    # Atributos temporales
-    opcion_seleccionada = models.IntegerField(blank=True, null=True)
-    salto = models.IntegerField(blank=True, null=True)
-
     class Meta:
-        ordering = ('orden', 'pk')
+        ordering = ('orden',)
 
     def __str__(self):
         return self.codigo
@@ -28,7 +26,18 @@ class Opcion(models.Model):
     orden = models.IntegerField(default=0)
 
     class Meta:
-        ordering = ('orden', 'pk')
+        ordering = ('orden',)
 
     def __str__(self):
         return self.texto
+
+
+class Respuesta(models.Model):
+    pregunta = models.ForeignKey(Pregunta, unique=True, related_name='respuestas')
+    opcion = models.ForeignKey(Opcion)
+
+    class Meta:
+        ordering = ('pregunta',)
+
+    def __str__(self):
+        return self.opcion.__str__()
